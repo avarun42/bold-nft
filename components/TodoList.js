@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/initSupabase'
 
-export default function Todos({ user }) {
+export default function Todos() {
   const [todos, setTodos] = useState([])
   const [newTaskText, setNewTaskText] = useState('')
   const [errorText, setError] = useState('')
@@ -20,7 +20,7 @@ export default function Todos({ user }) {
     if (task.length) {
       let { data: todo, error } = await supabase
         .from('todos')
-        .insert({ task, user_id: user.id })
+        .insert({ task })
         .single()
       if (error) setError(error.message)
       else setTodos([...todos, todo])
